@@ -42,7 +42,7 @@ class App extends Component {
       <>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
-          <ScrollView
+          <View
             contentInserAdjustmentBehavior="automatic"
             style={styles.scrollView}>
             {global.HermesInternal == null ? null : (
@@ -51,26 +51,34 @@ class App extends Component {
               </View>
             )}
             <View>
-              <Text style={styles.sectionTitle}>{this.state.seconds}</Text>
+              <Text style={styles.sectionTitle}>{this.state.seconds} Seconds</Text>
             </View>
             <View style={styles.body}>
               <Button
-                type='Solid Button'
+                color="#eb4034"
+                style={styles.button}
+                type="Solid Button"
                 title={'Scheduled Notification'}
                 onPress={() => {
                   this.notification.scheduleNotification(this.state.seconds);
                 }}
               />
             </View>
-          </ScrollView>
-          <Picker
-            style={styles.picker}
-            selectedValue={this.state.seconds}
-            onValueChange={seconds => this.setState({seconds})}>
-            <Picker.Item label="5" value={5} />
-            <Picker.Item label="10" value={10} />
-            <Picker.Item label="15" value={15} />
-          </Picker>
+          </View>
+          <View style={styles.container}>
+            <Picker
+              style={styles.picker}
+              itemStyle={styles.itemStyle}
+              selectedValue={this.state.seconds}
+              onValueChange={seconds => this.setState({seconds})}>
+              <Picker.Item label="5" value={5} />
+              <Picker.Item label="10" value={10} />
+              <Picker.Item label="15" value={15} />
+              <Picker.Item label="20" value={20} />
+              <Picker.Item label="25" value={25} />
+              <Picker.Item label="30" value={30} />
+            </Picker>
+          </View>
         </SafeAreaView>
       </>
     );
@@ -81,19 +89,25 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
-  picker: {
-    backgroundColor: Colors.lighter,
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  picker: {
+    height: 100,
+    width: 100,
+    color: '#344953',
+    justifyContent: 'center',
+  },
+  itemStyle: {
+    height: 70,
+    alignItems: 'center',
+  },
+  button: {
   },
   body: {
     backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
   },
   sectionTitle: {
     fontSize: 40,
@@ -101,23 +115,6 @@ const styles = StyleSheet.create({
     color: Colors.black,
     textAlign: 'center',
     paddingVertical: 100,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
   },
 });
 

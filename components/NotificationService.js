@@ -28,9 +28,9 @@ export default class NotificationService {
     scheduleNotification(seconds) {
         this.lastId++;
         PushNotification.localNotificationSchedule({
-            date: new Date(Date.now() + (seconds * 1000)), // set for 30 seconds
-            title: "Scheduled notification",
-            message: "My Notification Message",
+            date: new Date(Date.now() + (seconds * 1000)),
+            title: 'Notification Test',
+            message: `Notificaiton took ${this.state.seconds} seconds`,
             playSound: true,
             soundName: 'default',
         });
@@ -46,10 +46,5 @@ export default class NotificationService {
 
     cancelAll() {
         PushNotification.cancelAllLocalNotificationss();
-    }
-    render() {
-        return(
-           <Picker></Picker> 
-        )
     }
 }
