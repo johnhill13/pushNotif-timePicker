@@ -3,7 +3,7 @@ import PushNotification from 'react-native-push-notification';
 export default class NotificationService {
     //onNotification is a function passed in that is to be called when a notification is to be emitted.
 
-    constructor(onNotification, timePicker) {
+    constructor(onNotification) {
         this.configure(onNotification);
         this.lastId = 0;
         this.state = {
@@ -30,7 +30,7 @@ export default class NotificationService {
         PushNotification.localNotificationSchedule({
             date: new Date(Date.now() + (seconds * 1000)),
             title: 'Notification Test',
-            message: `Notificaiton took ${this.state.seconds} seconds`,
+            message: `Notification took ${this.state.seconds} seconds`,
             playSound: true,
             soundName: 'default',
         });
