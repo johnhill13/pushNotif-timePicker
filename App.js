@@ -8,9 +8,11 @@ import {
   StatusBar,
   Button,
   Alert,
+  Picker,
+  TouchableOpacity,
 } from 'react-native';
 
-import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import NotificationService from './components/NotificationService';
 
@@ -20,6 +22,9 @@ class App extends Component {
     // creating a new instance of the NotificationService
     //& passing in the function we want called when the notification happens
     this.notification = new NotificationService(this.onNotification);
+    this.state = {
+      seconds: 5,
+    };
   }
 
   // Gets called when the notification comes in
@@ -40,21 +45,32 @@ class App extends Component {
           <ScrollView
             contentInserAdjustmentBehavior="automatic"
             style={styles.scrollView}>
-            <Header />
             {global.HermesInternal == null ? null : (
               <View style={styles.engine}>
                 <Text style={styles.footer}>Engine: Hermes</Text>
               </View>
             )}
+            <View>
+              <Text style={styles.sectionTitle}>{this.state.seconds}</Text>
+            </View>
             <View style={styles.body}>
               <Button
-                title={'Scheduled (30s) Notification'}
+                type='Solid Button'
+                title={'Scheduled Notification'}
                 onPress={() => {
-                  this.notification.scheduleNotification();
+                  this.notification.scheduleNotification(this.state.seconds);
                 }}
               />
             </View>
           </ScrollView>
+          <Picker
+            style={styles.picker}
+            selectedValue={this.state.seconds}
+            onValueChange={seconds => this.setState({seconds})}>
+            <Picker.Item label="5" value={5} />
+            <Picker.Item label="10" value={10} />
+            <Picker.Item label="15" value={15} />
+          </Picker>
         </SafeAreaView>
       </>
     );
@@ -63,6 +79,9 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   scrollView: {
+    backgroundColor: Colors.lighter,
+  },
+  picker: {
     backgroundColor: Colors.lighter,
   },
   engine: {
@@ -77,9 +96,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 40,
     fontWeight: '600',
     color: Colors.black,
+    textAlign: 'center',
+    paddingVertical: 100,
   },
   sectionDescription: {
     marginTop: 8,
